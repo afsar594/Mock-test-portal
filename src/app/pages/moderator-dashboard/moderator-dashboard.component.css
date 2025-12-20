@@ -1,0 +1,58 @@
+.dashboard-wrapper{
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    border-top: 4px solid #1f3c88;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h2{
+    color: #1f3c88;
+    margin-bottom: 20px;
+}
+.actions{
+    margin-bottom: 20px;
+}
+.actions button{
+    padding: 10px 20px;
+    background: #1f3c88;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th , td{
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #d1d5db;
+}
+button{
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: #1f3c88;
+    color: #fff;
+}
+button:hover{
+    background:#193173 ;
+}
+.logout-btn{
+    background:#dc2626 ;
+}
+
+.edit-btn {
+  background: #6b7280;   /* grey */
+  margin-right: 8px;
+}
+
+.edit-btn:hover {
+  background: #4b5563;
+}

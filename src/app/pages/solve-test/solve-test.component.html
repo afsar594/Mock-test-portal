@@ -1,0 +1,50 @@
+<div class="solve-wrapper" *ngIf="test">
+
+  <div class="header">
+    <h2>{{ test.name }}</h2>
+    <div class="timer">
+      ⏱ Time Left: {{ timeLeft }} seconds
+    </div>
+  </div>
+
+  <!-- TEST QUESTIONS -->
+  <div *ngIf="!submitted">
+    <div class="question-box" *ngFor="let q of test.questions; let i = index">
+
+      <p><strong>Q{{ i + 1 }}.</strong> {{ q.question }}</p>
+
+      <label>
+        <input type="radio" name="q{{i}}" value="A" [(ngModel)]="answers[i]" />
+        A) {{ q.options.A }}
+      </label>
+
+      <label>
+        <input type="radio" name="q{{i}}" value="B" [(ngModel)]="answers[i]" />
+        B) {{ q.options.B }}
+      </label>
+
+      <label>
+        <input type="radio" name="q{{i}}" value="C" [(ngModel)]="answers[i]" />
+        C) {{ q.options.C }}
+      </label>
+
+      <label>
+        <input type="radio" name="q{{i}}" value="D" [(ngModel)]="answers[i]" />
+        D) {{ q.options.D }}
+      </label>
+
+    </div>
+
+    <button class="submit-btn" (click)="submitTest()">
+      Submit Test
+    </button>
+  </div>
+
+  <!-- AFTER SUBMIT (NO RESULT SHOWN) -->
+  <div class="submitted-msg" *ngIf="submitted">
+  ✅ Your test has been submitted successfully.  
+  <br />
+  The result will be reviewed by your instructor and communicated to you at the earliest.
+</div>
+
+</div>

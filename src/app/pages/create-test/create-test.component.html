@@ -1,0 +1,74 @@
+<div class="form-wrapper">
+  <h2>Create Test</h2>
+
+  <!-- Test Info -->
+  <input type="text" placeholder="Test Name" [(ngModel)]="testName" />
+  <input type="number" placeholder="Time per Question (seconds)" [(ngModel)]="timePerQuestion" min="1" />
+  <input type="number" placeholder="Total Marks" [(ngModel)]="totalMarks" min="1" />
+  <input type="number" placeholder="Passing Marks" [(ngModel)]="passingMarks" min="1" />
+
+  <button class="save-btn" (click)="createNewTest()" [disabled]="!canCreateTest()">Create Test</button>
+  <hr />
+
+  <div *ngIf="selectedTest">
+    <!-- Added Questions (Only if at least 1 question) -->
+    <div *ngIf="selectedTest.questions.length > 0">
+      <h3>Added Questions</h3>
+      <div class="question-box" *ngFor="let q of selectedTest.questions; let i = index">
+        <div class="question-header">
+          <p><strong>Q{{ i + 1 }}.</strong> {{ q.question }}</p>
+          <div class="actions">
+            <button (click)="editQuestion(i)">Edit</button>
+            <button (click)="deleteQuestion(i)">Delete</button>
+          </div>
+        </div>
+        <ul>
+          <li>A) {{ q.options.A }}</li>
+          <li>B) {{ q.options.B }}</li>
+          <li>C) {{ q.options.C }}</li>
+          <li>D) {{ q.options.D }}</li>
+        </ul>
+        <p class="correct">Correct Answer: {{ q.correct }}</p>
+      </div>
+    </div>
+
+    <!-- Add New Question Button (Always Visible) -->
+    <button class="add-more-btn" (click)="showQuestionForm = true">+ Add New Question</button>
+
+    <!-- Question Form -->
+    <div *ngIf="showQuestionForm">
+      <h3>{{ editIndex !== null ? 'Edit Question' : 'Add Question' }}</h3>
+      <input type="text" placeholder="Question" [(ngModel)]="questionText" />
+      <input type="text" placeholder="Option A" [(ngModel)]="optionA" />
+      <input type="text" placeholder="Option B" [(ngModel)]="optionB" />
+      <input type="text" placeholder="Option C" [(ngModel)]="optionC" />
+      <input type="text" placeholder="Option D" [(ngModel)]="optionD" />
+
+      <select [(ngModel)]="correctAnswer">
+        <option value="">Correct Answer</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select>
+
+      <button (click)="addQuestion()" [disabled]="!isQuestionFormValid()">
+        {{ editIndex !== null ? 'Update Question' : 'Add Question' }}
+      </button>
+    </div>
+
+    <button class="save-btn" (click)="finalSaveTest()" [disabled]="selectedTest.questions.length === 0">
+      Save Test
+    </button>
+  </div>
+
+  <h3>All Tests</h3>
+  <ul class="test-list">
+    <li *ngFor="let t of tests; let i = index">
+      <span class="test-name" (click)="openTest(t)">
+        {{ t.name }} ({{ t.questions.length }} MCQs)
+      </span>
+      <button class="delete-test-btn" (click)="deleteTest(i)">Delete</button>
+    </li>
+  </ul>
+</div>

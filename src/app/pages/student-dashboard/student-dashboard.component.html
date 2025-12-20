@@ -1,0 +1,18 @@
+<div class="student-dashboard">
+    <h2>Welcome, {{ studentName }}</h2>
+
+  <h2>Available Tests</h2>
+
+  <div *ngIf="activeTests.length === 0" class="no-test">
+    No active test available
+  </div>
+
+  <div class="test-card" *ngFor="let test of activeTests">
+    <h3>{{ test.name }}</h3>
+    <p>Total Marks: {{ test.totalMarks }}</p>
+    <p>Passing Marks: {{ test.passingMarks }}</p>
+    <p>Time / Question: {{ test.timePerQuestion }} sec</p>
+
+    <button (click)="startTest(test)">Start Test</button>
+  </div>
+</div>

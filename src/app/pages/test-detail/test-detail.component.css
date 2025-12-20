@@ -1,0 +1,66 @@
+.test-details-wrapper {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f4f8ff;
+  border-left: 6px solid #1f3c88;
+  border-radius: 8px;
+}
+
+h2, h3 {
+  color: #1f3c88;
+}
+
+.test-info p {
+  margin: 6px 0;
+  font-weight: 500;
+}
+
+.question-box {
+  background: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.correct {
+  color: #1f3c88;
+  font-weight: bold;
+}
+
+.add-btn {
+  margin-top: 15px;
+  background: #1f3c88;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #162e66;
+}
+
+.add-form {
+  margin-top: 15px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.add-form input,
+.add-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.save-btn {
+  background: #1f3c88;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}

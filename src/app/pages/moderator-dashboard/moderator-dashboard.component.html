@@ -1,0 +1,31 @@
+<div class="dashboard-wrapper">
+  <h2>Welcome, {{ moderatorName }}</h2>
+  <div class="actions">
+    <button (click)="createTest()">Create New Test</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Test Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let test of tests; let i = index">
+        <td>{{ test.name }}</td>
+        <td>{{ test.status }}</td>
+        <td>
+          <button (click)="toggleStatus(i)">
+            {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
+          </button>
+          <button class="edit-btn" (click)="editTest(test)">Edit</button>
+          <button class="edit-btn" (click)="openTestDetails(test)">View MCQs</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>

@@ -1,0 +1,17 @@
+.navbar {
+  background-color: #1f3c88; /* Blue theme */
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,58 @@
+.solve-wrapper {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9fbff;
+  border-left: 6px solid #1f3c88;
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer {
+  background: #1f3c88;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.question-box {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #1f3c88;
+}
+
+.question-box label {
+  display: block;
+  margin-top: 6px;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #1f3c88;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.result-box {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pass {
+  color: green;
+}
+
+.fail {
+  color: red;
+}
