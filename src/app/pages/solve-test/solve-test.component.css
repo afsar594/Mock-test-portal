@@ -1,58 +1,83 @@
-.solve-wrapper {
+.wrapper {
   max-width: 900px;
-  margin: 20px auto;
+  margin: auto;
   padding: 20px;
-  background: #f9fbff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.test-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.test-header h1 {
+  color: #1f3c88;
+  margin-bottom: 8px;
+}
+
+.test-header .info span {
+  display: inline-block;
+  margin: 0 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+.card {
+  background: #fff;
   border-left: 6px solid #1f3c88;
-  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.timer {
-  background: #1f3c88;
-  color: white;
-  padding: 8px 14px;
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
   border-radius: 6px;
-  font-weight: 600;
+  border: 1px solid #ccc;
 }
 
-.question-box {
-  background: white;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #1f3c88;
+textarea {
+  min-height: 120px;
 }
 
-.question-box label {
-  display: block;
-  margin-top: 6px;
-}
-
-.submit-btn {
-  margin-top: 20px;
-  padding: 12px 20px;
+.submit {
+  width: 100%;
   background: #1f3c88;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 12px 22px;
   cursor: pointer;
+  border-radius: 6px;
 }
 
-.result-box {
-  text-align: center;
+.submit:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.result {
   margin-top: 30px;
+  background: #e8f0ff;
+  padding: 20px;
+  border-left: 6px solid #1f3c88;
+  text-align: center;
 }
 
-.pass {
-  color: green;
+.note {
+  color: #555;
+  font-style: italic;
 }
 
-.fail {
-  color: red;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 12px;
+  }
+
+  .test-header .info span {
+    display: block;
+    margin-bottom: 6px;
+  }
 }

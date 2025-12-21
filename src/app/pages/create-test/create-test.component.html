@@ -78,6 +78,10 @@
     </div>
   </div>
 
-  <button class="save" (click)="saveTest()">Save Test</button>
+  <button class="save"
+        [disabled]="!isFormComplete()"
+        (click)="saveTest()">
+  Save Test
+</button>
 
 </div>

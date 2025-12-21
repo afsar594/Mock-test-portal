@@ -68,8 +68,14 @@ button:hover {
   width: 100%;
   padding: 12px;
   font-size: 16px;
+  
 }
-
+.save:disabled{
+  cursor: not-allowed;
+}
+.save:disabled:hover{
+  background: #999;
+}
 @media (max-width: 768px) {
   .row {
     flex-direction: column;

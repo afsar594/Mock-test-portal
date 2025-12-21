@@ -4,7 +4,7 @@ import { CreateTestComponent } from './pages/create-test/create-test.component';
 import { TestDetailsComponent } from './pages/test-detail/test-detail.component';
 import { LoginComponent } from './pages/login/login.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
-import { StudentSolveTestComponent } from './pages/solve-test/solve-test.component';
+import { SolveTestComponent } from './pages/solve-test/solve-test.component';
 import { HomeComponent } from './pages/home/home.component';
 import { IeltsWritingComponent } from './pages/ielts-writing/ielts-writing.component';
 import { IeltsListeningComponent } from './pages/ielts-listening/ielts-listening.component';
@@ -25,11 +25,7 @@ export const routes: Routes = [
   { path: 'create-test/:id', component: CreateTestComponent }, // for edit
   { path: 'test-details/:id', component: TestDetailsComponent }, // for viewing MCQs
   { path: 'student-dashboard', component: StudentDashboardComponent },
-  {
-    path: 'solve-test/:id',
-    component: StudentSolveTestComponent
-  },
-
+  { path: 'solve-test/:id', component: SolveTestComponent },
 { path: 'ielts-writing', component: IeltsWritingComponent },
 { path: 'ielts-listening', component: IeltsListeningComponent },
 { path: 'ielts-reading', component: IeltsReadingComponent },

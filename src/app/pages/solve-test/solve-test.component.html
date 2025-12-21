@@ -1,50 +1,71 @@
-<div class="solve-wrapper" *ngIf="test">
+<div class="wrapper" *ngIf="test">
 
-  <div class="header">
-    <h2>{{ test.name }}</h2>
-    <div class="timer">
-      ⏱ Time Left: {{ timeLeft }} seconds
+  <!-- Test Header -->
+  <div class="test-header">
+    <h1>{{ test.name }}</h1>
+    <div class="info">
+      <span><strong>Total Marks:</strong> {{ test.totalMarks }}</span>
+      <span><strong>Passing Marks:</strong> {{ test.passingMarks }}</span>
+      <span><strong>Time Left:</strong> {{ formatTime(timeLeft) }}</span>
     </div>
   </div>
 
-  <!-- TEST QUESTIONS -->
-  <div *ngIf="!submitted">
-    <div class="question-box" *ngFor="let q of test.questions; let i = index">
+  <!-- LISTENING -->
+  <div *ngIf="test.type === 'LISTENING'">
+    <div *ngFor="let rec of test.content.recordings; let i=index" class="card">
+      <h3>Recording {{ i + 1 }}</h3>
+      <p><strong>Audio:</strong> {{ rec.audio }}</p>
 
-      <p><strong>Q{{ i + 1 }}.</strong> {{ q.question }}</p>
-
-      <label>
-        <input type="radio" name="q{{i}}" value="A" [(ngModel)]="answers[i]" />
-        A) {{ q.options.A }}
-      </label>
-
-      <label>
-        <input type="radio" name="q{{i}}" value="B" [(ngModel)]="answers[i]" />
-        B) {{ q.options.B }}
-      </label>
-
-      <label>
-        <input type="radio" name="q{{i}}" value="C" [(ngModel)]="answers[i]" />
-        C) {{ q.options.C }}
-      </label>
-
-      <label>
-        <input type="radio" name="q{{i}}" value="D" [(ngModel)]="answers[i]" />
-        D) {{ q.options.D }}
-      </label>
-
+      <div *ngFor="let q of rec.questions; let qi=index">
+        <p>{{ q.q }}</p>
+        <input [(ngModel)]="answers['l'+i+qi]" placeholder="Your answer">
+      </div>
     </div>
-
-    <button class="submit-btn" (click)="submitTest()">
-      Submit Test
-    </button>
   </div>
 
-  <!-- AFTER SUBMIT (NO RESULT SHOWN) -->
-  <div class="submitted-msg" *ngIf="submitted">
-  ✅ Your test has been submitted successfully.  
-  <br />
-  The result will be reviewed by your instructor and communicated to you at the earliest.
-</div>
+  <!-- READING -->
+  <div *ngIf="test.type === 'READING'">
+    <div *ngFor="let p of test.content; let i=index" class="card">
+      <h3>Passage {{ i + 1 }}</h3>
+      <p>{{ p.passage }}</p>
+
+      <div *ngFor="let q of p.questions; let qi=index">
+        <p>{{ q.q }}</p>
+        <input [(ngModel)]="answers['r'+i+qi]" placeholder="Your answer">
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITING -->
+  <div *ngIf="test.type === 'WRITING'" class="card">
+    <h3>Task 1</h3>
+    <p>{{ test.content.task1 }}</p>
+    <textarea [(ngModel)]="answers.task1"></textarea>
+
+    <h3>Task 2</h3>
+    <p>{{ test.content.task2 }}</p>
+    <textarea [(ngModel)]="answers.task2"></textarea>
+  </div>
+
+  <!-- SPEAKING -->
+  <div *ngIf="test.type === 'SPEAKING'" class="card">
+    <h3>Part 1</h3>
+    <p *ngFor="let q of test.content.part1">{{ q.q }}</p>
+
+    <h3>Part 2</h3>
+    <p>{{ test.content.part2 }}</p>
+
+    <h3>Part 3</h3>
+    <p *ngFor="let q of test.content.part3">{{ q.q }}</p>
+
+    <p class="note">Speak your answers verbally.</p>
+  </div>
+
+  <button class="submit" (click)="submitTest()" [disabled]="submitted">Submit Test</button>
+
+  <div class="result" *ngIf="submitted">
+    <h2>Test Submitted Successfully</h2>
+    <p>The teacher will review your responses and respond as soon as possible.</p>
+  </div>
 
 </div>

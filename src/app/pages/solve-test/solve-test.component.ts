@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../services/test.service';
-import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-solve-test',
@@ -12,18 +11,15 @@ import emailjs from 'emailjs-com';
   templateUrl: './solve-test.component.html',
   styleUrls: ['./solve-test.component.css']
 })
-export class StudentSolveTestComponent implements OnInit, OnDestroy {
+export class SolveTestComponent implements OnInit {
 
   test: any;
   answers: any = {};
-  score = 0;
   submitted = false;
 
-  totalTime = 0;
-  timeLeft = 0;
-  timer: any;
-
-  studentName = 'Student'; // later login se aa sakta hai
+  // Timer
+  timeLeft: number = 0; // in seconds
+  timerInterval: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,69 +27,41 @@ export class StudentSolveTestComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.test = this.testService.getTests().find(t => t.id === id && t.status === 'Active');
+    this.test = this.testService.getTestById(id);
 
-    if (!this.test) {
+    if (!this.test || this.test.status !== 'Active') {
+      alert('Test not available');
       this.router.navigate(['/student-dashboard']);
       return;
     }
 
-    this.totalTime = this.test.questions.length * this.test.timePerQuestion;
-    this.timeLeft = this.totalTime;
-
+    // Initialize timer
+    this.timeLeft = this.test.duration * 60;
     this.startTimer();
   }
 
   startTimer() {
-    this.timer = setInterval(() => {
-      this.timeLeft--;
-
-      if (this.timeLeft <= 0) {
+    this.timerInterval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        clearInterval(this.timerInterval);
         this.submitTest();
       }
     }, 1000);
   }
 
-  submitTest() {
-    if (this.submitted) return;
-
-    clearInterval(this.timer);
-
-    this.score = 0;
-
-    this.test.questions.forEach((q: any, i: number) => {
-      if (this.answers[i] === q.correct) {
-        this.score++;
-      }
-    });
-
-    const total = this.test.questions.length;
-    const percentage = Math.round((this.score / total) * 100);
-    const status = percentage >= 50 ? 'PASS' : 'FAIL';
-
-    // 📧 SEND RESULT TO MODERATOR EMAIL
-    emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
-      {
-        to_email: 'saminatahir986@gmail.com',
-        student_name: this.studentName,
-        test_name: this.test.name,
-        marks: `${this.score} / ${total}`,
-        percentage: percentage + '%',
-        result: status
-      },
-      'YOUR_PUBLIC_KEY'
-    ).then(() => {
-      console.log('Result email sent to moderator');
-    });
-
-    this.submitted = true;
+  formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2,'0')}`;
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.timer);
+  submitTest() {
+    if (this.submitted) return; // prevent double submit
+    this.submitted = true;
+    clearInterval(this.timerInterval);
   }
 }

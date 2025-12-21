@@ -23,7 +23,7 @@ export class CreateTestComponent {
     content: null as any
   };
 
-  // LISTENING (4 sections)
+  // LISTENING
   listening = {
     recordings: [
       { audio: '', questions: [{ q: '' }] },
@@ -33,20 +33,20 @@ export class CreateTestComponent {
     ]
   };
 
-  // READING (3 passages)
+  // READING
   reading = [
     { passage: '', questions: [{ q: '', answer: '' }] },
     { passage: '', questions: [{ q: '', answer: '' }] },
     { passage: '', questions: [{ q: '', answer: '' }] }
   ];
 
-  // WRITING
+  // WRITING (HTML ke match)
   writing = {
     task1: '',
     task2: ''
   };
 
-  // SPEAKING
+  // SPEAKING (HTML ke match)
   speaking = {
     part1: [{ q: '' }],
     part2: '',
@@ -63,9 +63,49 @@ export class CreateTestComponent {
     list.splice(index, 1);
   }
 
+  /* 🔐 COMPLETE VALIDATION */
+  isFormComplete(): boolean {
+
+    if (!this.test.name || !this.test.type) return false;
+
+    if (this.test.type === 'LISTENING') {
+      return this.listening.recordings.every(r =>
+        r.audio.trim().length > 0 &&
+        r.questions.every(q => q.q.trim().length > 0)
+      );
+    }
+
+    if (this.test.type === 'READING') {
+      return this.reading.every(p =>
+        p.passage.trim().length > 0 &&
+        p.questions.every(q =>
+          q.q.trim().length > 0 &&
+          q.answer.trim().length > 0
+        )
+      );
+    }
+
+    if (this.test.type === 'WRITING') {
+      return (
+        this.writing.task1.trim().length > 0 &&
+        this.writing.task2.trim().length > 0
+      );
+    }
+
+    if (this.test.type === 'SPEAKING') {
+      return (
+        this.speaking.part1.every(q => q.q.trim().length > 0) &&
+        this.speaking.part2.trim().length > 0 &&
+        this.speaking.part3.every(q => q.q.trim().length > 0)
+      );
+    }
+
+    return false;
+  }
+
   saveTest() {
-    if (!this.test.name || !this.test.type) {
-      alert('Please fill test name and type');
+    if (!this.isFormComplete()) {
+      alert('Please complete all questions before saving the test.');
       return;
     }
 
