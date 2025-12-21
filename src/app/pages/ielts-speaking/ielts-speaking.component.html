@@ -1,0 +1,50 @@
+<div class="speaking-wrapper">
+
+  <h1>IELTS Speaking Test 🎤</h1>
+  <p class="subtitle">
+    Optional / Advanced: Choose your preferred method to complete the speaking test.
+  </p>
+
+  <!-- Option Switch -->
+  <div class="option-switch">
+    <button [class.active]="option==='text'" (click)="option='text'">Text Answers</button>
+    <button [class.active]="option==='audio'" (click)="option='audio'">Audio Recording</button>
+  </div>
+
+  <!-- TEXT ANSWERS -->
+  <div *ngIf="option === 'text'">
+    <div class="part">
+      <h3>Part 1</h3>
+      <p>Introduce yourself and describe your daily routine.</p>
+      <textarea [(ngModel)]="answers.part1" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <div class="part">
+      <h3>Part 2</h3>
+      <p>Describe a memorable event in your life.</p>
+      <textarea [(ngModel)]="answers.part2" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <div class="part">
+      <h3>Part 3</h3>
+      <p>Discuss the impact of technology on communication.</p>
+      <textarea [(ngModel)]="answers.part3" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <button class="submit-btn" (click)="submitTextTest()">Submit Text Answers</button>
+  </div>
+
+  <!-- AUDIO RECORDING -->
+  <div *ngIf="option === 'audio'" class="audio-section">
+    <p>Record your speaking answers for all parts.</p>
+    <button (click)="startRecording()" [disabled]="isRecording">Start Recording</button>
+    <button (click)="stopRecording()" [disabled]="!isRecording">Stop Recording</button>
+
+    <div *ngIf="audioData">
+      <h4>Preview:</h4>
+      <audio [src]="audioData" controls></audio>
+      <button class="submit-btn" (click)="submitAudioTest()">Submit Audio</button>
+    </div>
+  </div>
+
+</div>

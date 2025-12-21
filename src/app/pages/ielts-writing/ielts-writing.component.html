@@ -1,0 +1,63 @@
+<div class="writing-wrapper">
+
+  <h1>IELTS Writing Test</h1>
+  <p class="subtitle">
+    Complete both tasks carefully. Your answers will be reviewed by an examiner.
+  </p>
+
+  <!-- TASK 1 -->
+  <div class="task-box">
+    <h2>Task 1</h2>
+    <p class="instruction">
+      You should spend about 20 minutes on this task.
+    </p>
+
+    <p class="question">
+      The chart below shows the percentage of households with access to the
+      internet in different countries. Summarize the information by selecting
+      and reporting the main features.
+    </p>
+
+    <textarea
+      [(ngModel)]="task1Answer"
+      placeholder="Write at least 150 words..."
+    ></textarea>
+
+    <div class="word-count">
+      Word Count: {{ getWordCount(task1Answer) }} / 150
+    </div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="task-box">
+    <h2>Task 2</h2>
+    <p class="instruction">
+      You should spend about 40 minutes on this task.
+    </p>
+
+    <p class="question">
+      Some people believe that online education is more effective than
+      traditional classroom learning. To what extent do you agree or disagree?
+    </p>
+
+    <textarea
+      [(ngModel)]="task2Answer"
+      placeholder="Write at least 250 words..."
+    ></textarea>
+
+    <div class="word-count">
+      Word Count: {{ getWordCount(task2Answer) }} / 250
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="submit-btn" (click)="submitWritingTest()">
+    Submit Writing Test
+  </button>
+
+  <p class="note">
+    ✔ Your result will be evaluated by an examiner.  
+    ✔ You will be notified as soon as possible.
+  </p>
+
+</div>

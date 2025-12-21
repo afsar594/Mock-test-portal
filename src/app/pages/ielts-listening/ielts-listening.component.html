@@ -1,0 +1,41 @@
+<div class="listening-wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>IELTS Listening Test</h1>
+    <div class="timer">
+      ⏱ {{ minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <div class="audio-box">
+    <button (click)="playAudio()" [disabled]="isPlaying">▶ Play</button>
+    <button (click)="pauseAudio()" [disabled]="!isPlaying">⏸ Pause</button>
+  </div>
+
+  <!-- LIVE TYPING -->
+  <div class="typing-box">
+    <h3>Write what you hear</h3>
+    <textarea
+      [(ngModel)]="studentText"
+      placeholder="Type exactly what the speaker says..."
+    ></textarea>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="question-box">
+    <h3>Questions</h3>
+
+    <div *ngFor="let q of questions" class="question">
+      <p>{{ q.q }}</p>
+      <textarea [(ngModel)]="q.answer"></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="submit-btn" (click)="submitTest()">
+    Submit Listening Test
+  </button>
+
+</div>

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { TestService } from '../../services/test.service';
 
 @Component({
@@ -11,158 +10,72 @@ import { TestService } from '../../services/test.service';
   templateUrl: './create-test.component.html',
   styleUrls: ['./create-test.component.css']
 })
-export class CreateTestComponent implements OnInit {
-  tests: any[] = [];
-  selectedTest: any = null;
-  showQuestions = false;
-  showQuestionForm = false;
-  editIndex: number | null = null;
+export class CreateTestComponent {
 
-  testName = '';
-  timePerQuestion = 10;
-  totalMarks = '';
-  passingMarks = '';
+  test = {
+    id: Date.now(),
+    name: '',
+    totalMarks: 40,
+    passingMarks: 20,
+    duration: 30,
+    type: '',
+    status: 'Active',
+    content: null as any
+  };
 
-  questionText = '';
-  optionA = '';
-  optionB = '';
-  optionC = '';
-  optionD = '';
-  correctAnswer = '';
+  // LISTENING (4 sections)
+  listening = {
+    recordings: [
+      { audio: '', questions: [{ q: '' }] },
+      { audio: '', questions: [{ q: '' }] },
+      { audio: '', questions: [{ q: '' }] },
+      { audio: '', questions: [{ q: '' }] }
+    ]
+  };
 
-  constructor(private testService: TestService, private route: ActivatedRoute) {
-    this.tests = this.testService.getTests();
+  // READING (3 passages)
+  reading = [
+    { passage: '', questions: [{ q: '', answer: '' }] },
+    { passage: '', questions: [{ q: '', answer: '' }] },
+    { passage: '', questions: [{ q: '', answer: '' }] }
+  ];
+
+  // WRITING
+  writing = {
+    task1: '',
+    task2: ''
+  };
+
+  // SPEAKING
+  speaking = {
+    part1: [{ q: '' }],
+    part2: '',
+    part3: [{ q: '' }]
+  };
+
+  constructor(private testService: TestService) {}
+
+  addQuestion(list: any[]) {
+    list.push({ q: '' });
   }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      const testId = Number(id);
-      this.selectedTest = this.tests.find(t => t.id === testId);
-      if (this.selectedTest) {
-        this.showQuestions = this.selectedTest.questions.length > 0;
-        this.testName = this.selectedTest.name;
-        this.timePerQuestion = this.selectedTest.timePerQuestion;
-        this.totalMarks = this.selectedTest.totalMarks;
-        this.passingMarks = this.selectedTest.passingMarks;
-      }
-    }
+  removeQuestion(list: any[], index: number) {
+    list.splice(index, 1);
   }
 
-  canCreateTest(): boolean {
-    return this.testName.trim() !== '' && this.timePerQuestion > 0 &&
-           this.totalMarks !== '' && this.passingMarks !== '';
-  }
-
-  isQuestionFormValid(): boolean {
-    return this.questionText.trim() !== '' &&
-           this.optionA.trim() !== '' &&
-           this.optionB.trim() !== '' &&
-           this.optionC.trim() !== '' &&
-           this.optionD.trim() !== '' &&
-           this.correctAnswer !== '';
-  }
-
-  createNewTest() {
-    this.selectedTest = {
-      id: Date.now(),
-      name: this.testName,
-      timePerQuestion: this.timePerQuestion,
-      totalMarks: this.totalMarks,
-      passingMarks: this.passingMarks,
-      status: 'Inactive',
-      questions: []
-    };
-    this.showQuestions = false; // hide initially until first question added
-  }
-
-  addQuestion() {
-    if (!this.selectedTest || !this.isQuestionFormValid()) return;
-
-    const q = {
-      question: this.questionText,
-      options: { A: this.optionA, B: this.optionB, C: this.optionC, D: this.optionD },
-      correct: this.correctAnswer
-    };
-
-    if (this.editIndex !== null) {
-      this.selectedTest.questions[this.editIndex] = q;
-      this.editIndex = null;
-    } else {
-      this.selectedTest.questions.push(q);
+  saveTest() {
+    if (!this.test.name || !this.test.type) {
+      alert('Please fill test name and type');
+      return;
     }
 
-    this.clearForm();
-    this.showQuestions = true; // show added questions after first add
-    this.showQuestionForm = false; // hide form
-  }
+    this.test.content =
+      this.test.type === 'LISTENING' ? this.listening :
+      this.test.type === 'READING'   ? this.reading :
+      this.test.type === 'WRITING'   ? this.writing :
+      this.speaking;
 
-  editQuestion(index: number) {
-    const q = this.selectedTest.questions[index];
-    this.questionText = q.question;
-    this.optionA = q.options.A;
-    this.optionB = q.options.B;
-    this.optionC = q.options.C;
-    this.optionD = q.options.D;
-    this.correctAnswer = q.correct;
-    this.editIndex = index;
-    this.showQuestionForm = true;
-  }
-
-  openTest(test: any) {
-    this.selectedTest = test;
-    this.showQuestions = test.questions.length > 0;
-    this.showQuestionForm = false;
-    this.testName = test.name;
-    this.timePerQuestion = test.timePerQuestion;
-    this.totalMarks = test.totalMarks;
-    this.passingMarks = test.passingMarks;
-    this.clearForm();
-  }
-
-  finalSaveTest() {
-    if (!this.selectedTest || this.selectedTest.questions.length === 0) return;
-
-    const index = this.tests.findIndex(t => t.id === this.selectedTest.id);
-    if (index > -1) {
-      this.tests[index] = this.selectedTest;
-    } else {
-      this.testService.addTest(this.selectedTest);
-    }
-
-    this.resetAll();
-  }
-
-  deleteQuestion(index: number) {
-    this.selectedTest.questions.splice(index, 1);
-    if (this.selectedTest.questions.length === 0) this.showQuestions = false;
-  }
-
-  deleteTest(index: number) {
-    this.testService.deleteTest(index);
-    this.selectedTest = null;
-    this.showQuestions = false;
-    this.showQuestionForm = false;
-  }
-
-  clearForm() {
-    this.questionText = '';
-    this.optionA = '';
-    this.optionB = '';
-    this.optionC = '';
-    this.optionD = '';
-    this.correctAnswer = '';
-    this.editIndex = null;
-  }
-
-  resetAll() {
-    this.selectedTest = null;
-    this.testName = '';
-    this.timePerQuestion = 10;
-    this.totalMarks = '';
-    this.passingMarks = '';
-    this.showQuestions = false;
-    this.showQuestionForm = false;
-    this.clearForm();
+    this.testService.saveTest(this.test);
+    alert('Test saved successfully!');
   }
 }

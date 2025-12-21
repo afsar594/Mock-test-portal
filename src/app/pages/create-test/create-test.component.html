@@ -1,74 +1,83 @@
-<div class="form-wrapper">
-  <h2>Create Test</h2>
+<div class="wrapper">
 
-  <!-- Test Info -->
-  <input type="text" placeholder="Test Name" [(ngModel)]="testName" />
-  <input type="number" placeholder="Time per Question (seconds)" [(ngModel)]="timePerQuestion" min="1" />
-  <input type="number" placeholder="Total Marks" [(ngModel)]="totalMarks" min="1" />
-  <input type="number" placeholder="Passing Marks" [(ngModel)]="passingMarks" min="1" />
+  <h1>Create IELTS Test</h1>
 
-  <button class="save-btn" (click)="createNewTest()" [disabled]="!canCreateTest()">Create Test</button>
-  <hr />
+  <!-- BASIC INFO -->
+  <div class="card">
+    <input placeholder="Test Name" [(ngModel)]="test.name">
 
-  <div *ngIf="selectedTest">
-    <!-- Added Questions (Only if at least 1 question) -->
-    <div *ngIf="selectedTest.questions.length > 0">
-      <h3>Added Questions</h3>
-      <div class="question-box" *ngFor="let q of selectedTest.questions; let i = index">
-        <div class="question-header">
-          <p><strong>Q{{ i + 1 }}.</strong> {{ q.question }}</p>
-          <div class="actions">
-            <button (click)="editQuestion(i)">Edit</button>
-            <button (click)="deleteQuestion(i)">Delete</button>
-          </div>
-        </div>
-        <ul>
-          <li>A) {{ q.options.A }}</li>
-          <li>B) {{ q.options.B }}</li>
-          <li>C) {{ q.options.C }}</li>
-          <li>D) {{ q.options.D }}</li>
-        </ul>
-        <p class="correct">Correct Answer: {{ q.correct }}</p>
-      </div>
+    <div class="row">
+      <input type="number" placeholder="Total Marks" [(ngModel)]="test.totalMarks">
+      <input type="number" placeholder="Passing Marks" [(ngModel)]="test.passingMarks">
+      <input type="number" placeholder="Duration (minutes)" [(ngModel)]="test.duration">
     </div>
 
-    <!-- Add New Question Button (Always Visible) -->
-    <button class="add-more-btn" (click)="showQuestionForm = true">+ Add New Question</button>
-
-    <!-- Question Form -->
-    <div *ngIf="showQuestionForm">
-      <h3>{{ editIndex !== null ? 'Edit Question' : 'Add Question' }}</h3>
-      <input type="text" placeholder="Question" [(ngModel)]="questionText" />
-      <input type="text" placeholder="Option A" [(ngModel)]="optionA" />
-      <input type="text" placeholder="Option B" [(ngModel)]="optionB" />
-      <input type="text" placeholder="Option C" [(ngModel)]="optionC" />
-      <input type="text" placeholder="Option D" [(ngModel)]="optionD" />
-
-      <select [(ngModel)]="correctAnswer">
-        <option value="">Correct Answer</option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option>
-      </select>
-
-      <button (click)="addQuestion()" [disabled]="!isQuestionFormValid()">
-        {{ editIndex !== null ? 'Update Question' : 'Add Question' }}
-      </button>
-    </div>
-
-    <button class="save-btn" (click)="finalSaveTest()" [disabled]="selectedTest.questions.length === 0">
-      Save Test
-    </button>
+    <select [(ngModel)]="test.type">
+      <option value="">Select Test Type</option>
+      <option value="LISTENING">Listening</option>
+      <option value="READING">Reading</option>
+      <option value="WRITING">Writing</option>
+      <option value="SPEAKING">Speaking</option>
+    </select>
   </div>
 
-  <h3>All Tests</h3>
-  <ul class="test-list">
-    <li *ngFor="let t of tests; let i = index">
-      <span class="test-name" (click)="openTest(t)">
-        {{ t.name }} ({{ t.questions.length }} MCQs)
-      </span>
-      <button class="delete-test-btn" (click)="deleteTest(i)">Delete</button>
-    </li>
-  </ul>
+  <!-- LISTENING -->
+  <div *ngIf="test.type==='LISTENING'" class="card">
+    <h2>Listening Test (4 Sections)</h2>
+
+    <div *ngFor="let rec of listening.recordings; let i=index" class="inner-card">
+      <h3>Recording {{ i + 1 }}</h3>
+      <input placeholder="Audio file name" [(ngModel)]="rec.audio">
+
+      <div *ngFor="let q of rec.questions; let qi=index" class="question">
+        <input placeholder="Question" [(ngModel)]="q.q">
+        <button (click)="removeQuestion(rec.questions, qi)">❌</button>
+      </div>
+
+      <button (click)="addQuestion(rec.questions)">+ Add Question</button>
+    </div>
+  </div>
+
+  <!-- READING -->
+  <div *ngIf="test.type==='READING'" class="card">
+    <h2>Reading Test (3 Passages)</h2>
+
+    <div *ngFor="let p of reading; let i=index" class="inner-card">
+      <h3>Passage {{ i + 1 }}</h3>
+      <textarea placeholder="Reading passage" [(ngModel)]="p.passage"></textarea>
+
+      <div *ngFor="let q of p.questions; let qi=index" class="question">
+        <input placeholder="Question" [(ngModel)]="q.q">
+        <input placeholder="Answer" [(ngModel)]="q.answer">
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITING -->
+  <div *ngIf="test.type==='WRITING'" class="card">
+    <h2>Writing Test</h2>
+    <textarea placeholder="Task 1 Question" [(ngModel)]="writing.task1"></textarea>
+    <textarea placeholder="Task 2 Essay Question" [(ngModel)]="writing.task2"></textarea>
+  </div>
+
+  <!-- SPEAKING -->
+  <div *ngIf="test.type==='SPEAKING'" class="card">
+    <h2>Speaking Test</h2>
+
+    <h3>Part 1</h3>
+    <div *ngFor="let q of speaking.part1; let i=index" class="question">
+      <input placeholder="Question" [(ngModel)]="q.q">
+    </div>
+
+    <h3>Part 2</h3>
+    <textarea placeholder="Cue card topic" [(ngModel)]="speaking.part2"></textarea>
+
+    <h3>Part 3</h3>
+    <div *ngFor="let q of speaking.part3; let i=index" class="question">
+      <input placeholder="Question" [(ngModel)]="q.q">
+    </div>
+  </div>
+
+  <button class="save" (click)="saveTest()">Save Test</button>
+
 </div>

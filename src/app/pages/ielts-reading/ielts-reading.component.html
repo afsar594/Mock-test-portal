@@ -1,0 +1,43 @@
+<div class="reading-wrapper">
+
+  <h1>IELTS Reading Test</h1>
+  <p class="subtitle">
+    Read the passage carefully and answer the questions below.
+  </p>
+
+  <!-- PASSAGE -->
+  <div class="passage-box">
+    <h3>Passage:</h3>
+    <p>
+      Climate change refers to long-term shifts in temperatures and weather patterns,
+      primarily caused by human activities, especially the burning of fossil fuels.
+      These changes have significant impacts on ecosystems, agriculture, and human health.
+      It is important to adopt sustainable practices to reduce carbon emissions.
+    </p>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="question-box">
+    <h3>Question 1</h3>
+    <p>What is the main cause of climate change according to the passage?</p>
+    <input type="text" [(ngModel)]="answers.q1" placeholder="Your answer here">
+  </div>
+
+  <div class="question-box">
+    <h3>Question 2</h3>
+    <p>Mention two areas affected by climate change.</p>
+    <input type="text" [(ngModel)]="answers.q2" placeholder="Your answer here">
+  </div>
+
+  <div class="question-box">
+    <h3>Question 3</h3>
+    <p>Suggest one way to reduce carbon emissions.</p>
+    <input type="text" [(ngModel)]="answers.q3" placeholder="Your answer here">
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="submit-btn" (click)="submitReadingTest()">
+    Submit Reading Test
+  </button>
+
+</div>

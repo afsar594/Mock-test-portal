@@ -1,0 +1,109 @@
+.speaking-wrapper {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+h1 {
+  color: #1f3c88;
+  text-align: center;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Option Switch */
+.option-switch {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.option-switch button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #f2f4f7;
+  color: #1f3c88;
+  font-weight: 600;
+}
+
+.option-switch button.active {
+  background: #1f3c88;
+  color: #fff;
+}
+
+/* Text Answer Part */
+.part {
+  background: #f2f4f7;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid #1f3c88;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+}
+
+.part h3 {
+  color: #1f3c88;
+  margin-bottom: 10px;
+}
+
+.part p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  resize: vertical;
+  font-size: 14px;
+}
+
+/* Buttons */
+button, .submit-btn {
+  padding: 10px 18px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.submit-btn {
+  background: #1f3c88;
+  color: #fff;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background: #193173;
+}
+
+/* Audio Section */
+.audio-section button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .speaking-wrapper {
+    padding: 15px;
+  }
+  textarea {
+    min-height: 80px;
+  }
+  .option-switch {
+    flex-direction: column;
+  }
+}
