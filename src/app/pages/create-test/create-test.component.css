@@ -1,81 +1,186 @@
 .wrapper {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
-  padding: 15px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
+/* ================= HEADINGS ================= */
 h1, h2, h3 {
   color: #1f3c88;
+  margin-bottom: 10px;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
+
+/* ================= CARDS ================= */
 .card {
-  background: #fff;
+  background: #ffffff;
   padding: 20px;
   margin-bottom: 25px;
-  border-radius: 10px;
+  border-radius: 12px;
   border-left: 6px solid #1f3c88;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 .inner-card {
-  margin-top: 15px;
+  background: #f9fafb;
   padding: 15px;
-  border: 1px solid #ddd;
-  border-left: 6px solid #1f3c88;
-  border-radius: 8px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #1f3c88;
 }
 
+/* ================= FORM LAYOUT ================= */
 .row {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-input, textarea, select {
+.row input {
+  flex: 1;
+}
+
+/* ================= INPUTS ================= */
+input,
+textarea,
+select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #1f3c88;
 }
 
 textarea {
-  min-height: 80px;
+  min-height: 90px;
+  resize: vertical;
 }
 
+/* ================= QUESTIONS ================= */
 .question {
   display: flex;
   gap: 10px;
+  align-items: center;
   margin-top: 8px;
 }
 
+.question input {
+  flex: 1;
+}
+
+/* ================= BUTTONS ================= */
 button {
-  background: #1f3c88;
-  color: #fff;
   border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
-button:hover {
-  background: #163066;
+/* ADD */
+.add-btn {
+  margin-top: 10px;
+  background: #10b981;
+  color: white;
+  padding: 7px 12px;
 }
 
-.save {
+.add-btn:hover {
+  background: #059669;
+}
+
+/* SAVE */
+.save-btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
-  
+  background: #1f3c88;
+  color: white;
+  margin-bottom: 30px;
 }
-.save:disabled{
+
+.save-btn:hover {
+  background: #162d6d;
+}
+
+.save-btn:disabled {
+  background: #9ca3af;
   cursor: not-allowed;
 }
-.save:disabled:hover{
-  background: #999;
+
+/* EDIT */
+.edit-btn {
+  background: #2563eb;
+  color: white;
+  padding: 6px 12px;
 }
+
+.edit-btn:hover {
+  background: #1e40af;
+}
+
+/* DELETE */
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  padding: 6px 12px;
+}
+
+.delete-btn:hover {
+  background: #991b1b;
+}
+
+/* ================= ALL TESTS ================= */
+.test-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 992px) {
+
+  .wrapper {
+    padding: 15px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .question {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .row {
     flex-direction: column;

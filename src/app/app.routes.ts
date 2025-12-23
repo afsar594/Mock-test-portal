@@ -23,7 +23,10 @@ export const routes: Routes = [
   { path: 'moderator-dashboard', component: ModeratorDashboardComponent },
   { path: 'create-test', component: CreateTestComponent }, // for new test
   { path: 'create-test/:id', component: CreateTestComponent }, // for edit
-  { path: 'test-details/:id', component: TestDetailsComponent }, // for viewing MCQs
+  {
+    path: 'test-details/:id',
+    component: TestDetailsComponent
+  },
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'solve-test/:id', component: SolveTestComponent },
 { path: 'ielts-writing', component: IeltsWritingComponent },

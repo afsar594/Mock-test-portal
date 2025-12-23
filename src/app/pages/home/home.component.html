@@ -16,25 +16,34 @@
     <div class="section-card">
       <h3>Listening</h3>
       <p>Enhance your listening skills with practice tests.</p>
-      <a routerLink="/ielts-listening" class="btn">Start Listening Test</a>
+      <a [routerLink]="['/student-dashboard']" [queryParams]="{ type: 'LISTENING' }" class="btn">
+  Start Listening Test
+</a>
+
     </div>
 
     <div class="section-card">
       <h3>Reading</h3>
       <p>Improve your reading speed and comprehension.</p>
-      <a routerLink="/ielts-reading" class="btn">Start Reading Test</a>
+      <a [routerLink]="['/student-dashboard']" [queryParams]="{ type: 'READING' }" class="btn">
+  Start Reading Test
+</a>
     </div>
 
     <div class="section-card">
       <h3>Writing</h3>
       <p>Practice essay and report writing for IETS.</p>
-      <a routerLink="/student-dashboard" class="btn">Start Writing Test</a>
+      <a [routerLink]="['/student-dashboard']" [queryParams]="{ type: 'WRITING' }" class="btn">
+  Start Writing Test
+</a>
     </div>
 
     <div class="section-card">
       <h3>Speaking</h3>
       <p>Prepare for your speaking test with sample exercises.</p>
-      <a routerLink="/ielts-speaking" class="btn">Start Speaking Test</a>
+      <a [routerLink]="['/student-dashboard']" [queryParams]="{ type: 'SPEAKING' }" class="btn">
+  Start Speaking Test
+</a>
     </div>
   </div>
 </div>

@@ -4,28 +4,113 @@
     <button (click)="createTest()">Create New Test</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Test Name</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let test of tests; let i = index">
-        <td>{{ test.name }}</td>
-        <td>{{ test.status }}</td>
-        <td>
-          <button (click)="toggleStatus(i)">
-            {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
-          </button>
-          <button class="edit-btn" (click)="editTest(test)">Edit</button>
-          <button class="edit-btn" (click)="openTestDetails(test)">View MCQs</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Listening Tests -->
+  <div *ngIf="listeningTests.length > 0" class="test-section">
+    <h3>Listening Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of listeningTests">
+          <td>{{ test.name }}</td>
+          <td>{{ test.status }}</td>
+          <td>
+            <button (click)="toggleStatus(test)">
+              {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+            <button class="edit-btn" (click)="editTest(test)">Edit</button>
+            <button class="edit-btn" (click)="openTestDetails(test)">View MCQs</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Reading Tests -->
+  <div *ngIf="readingTests.length > 0" class="test-section">
+    <h3>Reading Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of readingTests">
+          <td>{{ test.name }}</td>
+          <td>{{ test.status }}</td>
+          <td>
+            <button (click)="toggleStatus(test)">
+              {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+            <button class="edit-btn" (click)="editTest(test)">Edit</button>
+            <button class="edit-btn" (click)="openTestDetails(test)">View MCQs</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Writing Tests -->
+  <div *ngIf="writingTests.length > 0" class="test-section">
+    <h3>Writing Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of writingTests">
+          <td>{{ test.name }}</td>
+          <td>{{ test.status }}</td>
+          <td>
+            <button (click)="toggleStatus(test)">
+              {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+            <button class="edit-btn" (click)="editTest(test)">Edit</button>
+            <button class="edit-btn" (click)="openTestDetails(test)">View MCQs</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Speaking Tests -->
+  <div *ngIf="speakingTests.length > 0" class="test-section">
+    <h3>Speaking Tests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let test of speakingTests">
+          <td>{{ test.name }}</td>
+          <td>{{ test.status }}</td>
+          <td>
+            <button (click)="toggleStatus(test)">
+              {{ test.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+            <button class="edit-btn" (click)="editTest(test)">Edit</button>
+            <button class="edit-btn" (click)="openTestDetails(test)">View Test</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <button class="logout-btn" (click)="logout()">Logout</button>
 </div>

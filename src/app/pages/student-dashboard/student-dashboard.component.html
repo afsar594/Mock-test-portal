@@ -1,18 +1,56 @@
 <div class="student-dashboard">
-    <h2>Welcome, {{ studentName }}</h2>
+  <h2 class="welcome">Welcome, {{ studentName }}</h2>
 
-  <h2>Available Tests</h2>
-
-  <div *ngIf="activeTests.length === 0" class="no-test">
-    No active test available
+  <!-- LISTENING -->
+  <div class="section">
+    <h3>Listening Tests</h3>
+    <div *ngIf="listeningTests.length === 0" class="no-test">No listening test available</div>
+    <div class="grid">
+      <div class="test-card" *ngFor="let test of listeningTests">
+        <h4>{{ test.name }}</h4>
+        <p>Total Marks: {{ test.totalMarks }}</p>
+        <p>Time / Question: {{ test.timePerQuestion || test.duration }} sec</p>
+        <button (click)="startTest(test.id)">Start Test</button>
+      </div>
+    </div>
   </div>
 
-  <div class="test-card" *ngFor="let test of activeTests">
-    <h3>{{ test.name }}</h3>
-    <p>Total Marks: {{ test.totalMarks }}</p>
-    <p>Passing Marks: {{ test.passingMarks }}</p>
-    <p>Time / Question: {{ test.timePerQuestion }} sec</p>
+  <!-- READING -->
+  <div class="section">
+    <h3>Reading Tests</h3>
+    <div *ngIf="readingTests.length === 0" class="no-test">No reading test available</div>
+    <div class="grid">
+      <div class="test-card" *ngFor="let test of readingTests">
+        <h4>{{ test.name }}</h4>
+        <p>Total Marks: {{ test.totalMarks }}</p>
+        <p>Time / Question: {{ test.timePerQuestion || test.duration }} sec</p>
+        <button (click)="startTest(test.id)">Start Test</button>
+      </div>
+    </div>
+  </div>
 
-    <button (click)="startTest(test)">Start Test</button>
+  <!-- WRITING -->
+  <div class="section">
+    <h3>Writing Tests</h3>
+    <div *ngIf="writingTests.length === 0" class="no-test">No writing test available</div>
+    <div class="grid">
+      <div class="test-card" *ngFor="let test of writingTests">
+        <h4>{{ test.name }}</h4>
+        <p>Total Marks: {{ test.totalMarks }}</p>
+        <button (click)="startTest(test.id)">Start Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPEAKING -->
+  <div class="section">
+    <h3>Speaking Tests</h3>
+    <div *ngIf="speakingTests.length === 0" class="no-test">No speaking test available</div>
+    <div class="grid">
+      <div class="test-card" *ngFor="let test of speakingTests">
+        <h4>{{ test.name }}</h4>
+        <button (click)="startTest(test.id)">Start Test</button>
+      </div>
+    </div>
   </div>
 </div>

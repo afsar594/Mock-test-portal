@@ -13,15 +13,25 @@ import { FormsModule } from '@angular/forms';
 })
 export class ModeratorDashboardComponent {
   moderatorName = 'Moderator';
-  tests: any[] = [];
 
-  constructor(private router: Router, private testService: TestService) {
-    this.tests = this.testService.getTests();
+  listeningTests: any[] = [];
+  readingTests: any[] = [];
+  writingTests: any[] = [];
+  speakingTests: any[] = [];
+
+  constructor(private router: Router, private testService: TestService) {}
+
+  ngOnInit() {
+    const allTests = this.testService.getTests();
+    this.listeningTests = allTests.filter(t => t.type === 'LISTENING');
+    this.readingTests   = allTests.filter(t => t.type === 'READING');
+    this.writingTests   = allTests.filter(t => t.type === 'WRITING');
+    this.speakingTests  = allTests.filter(t => t.type === 'SPEAKING');
   }
 
-  toggleStatus(index: number) {
-    this.testService.toggleStatus(index);
-  }
+toggleStatus(test: any) {
+  this.testService.toggleStatusById(test.id);
+}
 
   logout() {
     this.router.navigate(['/']);
@@ -31,12 +41,12 @@ export class ModeratorDashboardComponent {
     this.router.navigate(['/create-test']);
   }
 
-editTest(test: any) {
-  this.router.navigate(['/create-test', test.id]); // pass id for edit
-}
+  editTest(test: any) {
+    this.router.navigate(['/create-test', test.id]);
+  }
 
-openTestDetails(test: any) {
-  this.router.navigate(['/test-details', test.id]); // pass id to view MCQs
+  openTestDetails(test: any) {
+  this.router.navigate(['/test-details', test.id]);
 }
 
 }

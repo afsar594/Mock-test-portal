@@ -1,48 +1,51 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestService {
 
-  tests: any[] = [];
+  private tests: any[] = [];
 
-  // Get all tests
+  private testsSubject = new BehaviorSubject<any[]>([]);
+  tests$ = this.testsSubject.asObservable();
+
+  /* ================= GET ALL TESTS ================= */
   getTests() {
-    return this.tests;
+    return [...this.tests]; // safe copy
   }
 
-  // Save a test (new or edit)
+  /* ================= SAVE / UPDATE TEST ================= */
   saveTest(test: any) {
     const index = this.tests.findIndex(t => t.id === test.id);
 
     if (index > -1) {
-      this.tests[index] = test; // edit
+      this.tests[index] = test; // edit existing
     } else {
-      this.tests.push(test); // new
+      this.tests.push(test); // new test
     }
+
+    this.testsSubject.next([...this.tests]); // emit update
   }
 
-  // Delete a test by ID
-  deleteTest(id: number) {
-    this.tests = this.tests.filter(t => t.id !== id);
-  }
-
-  // Get a test by ID
+  /* ================= GET TEST BY ID ================= */
   getTestById(id: number) {
     return this.tests.find(t => t.id === id);
   }
 
-  // Get only active tests
-  getActiveTests() {
-    return this.tests.filter(t => t.status === 'Active');
+  /* ================= DELETE TEST ================= */
+  deleteTest(id: number) {
+    this.tests = this.tests.filter(t => t.id !== id);
+    this.testsSubject.next([...this.tests]);
   }
 
-  // Toggle test status by index
-  toggleStatus(index: number) {
-    if (!this.tests[index]) return;
+  /* ================= TOGGLE ACTIVE / INACTIVE ================= */
+  toggleStatusById(id: number) {
+    const test = this.tests.find(t => t.id === id);
+    if (!test) return;
 
-    this.tests[index].status =
-      this.tests[index].status === 'Active' ? 'Inactive' : 'Active';
+    test.status = test.status === 'Active' ? 'Inactive' : 'Active';
+    this.testsSubject.next([...this.tests]);
   }
 }

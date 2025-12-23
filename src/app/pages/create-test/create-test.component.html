@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-  <h1>Create IELTS Test</h1>
+  <h1>{{ isEditMode ? 'Edit IELTS Test' : 'Create IELTS Test' }}</h1>
 
   <!-- BASIC INFO -->
   <div class="card">
@@ -23,65 +23,89 @@
 
   <!-- LISTENING -->
   <div *ngIf="test.type==='LISTENING'" class="card">
-    <h2>Listening Test (4 Sections)</h2>
+    <h2>Listening</h2>
 
     <div *ngFor="let rec of listening.recordings; let i=index" class="inner-card">
-      <h3>Recording {{ i + 1 }}</h3>
-      <input placeholder="Audio file name" [(ngModel)]="rec.audio">
+      <h3>Recording {{ i+1 }}</h3>
+      <input placeholder="Audio URL" [(ngModel)]="rec.audio">
 
       <div *ngFor="let q of rec.questions; let qi=index" class="question">
         <input placeholder="Question" [(ngModel)]="q.q">
-        <button (click)="removeQuestion(rec.questions, qi)">❌</button>
+        <button class="delete-btn" (click)="removeQuestion(rec.questions, qi)">Delete</button>
       </div>
 
-      <button (click)="addQuestion(rec.questions)">+ Add Question</button>
+      <button class="add-btn" (click)="addQuestion(rec.questions)">
+        Add More Question
+      </button>
     </div>
   </div>
 
   <!-- READING -->
   <div *ngIf="test.type==='READING'" class="card">
-    <h2>Reading Test (3 Passages)</h2>
+    <h2>Reading</h2>
 
     <div *ngFor="let p of reading; let i=index" class="inner-card">
-      <h3>Passage {{ i + 1 }}</h3>
-      <textarea placeholder="Reading passage" [(ngModel)]="p.passage"></textarea>
+      <h3>Passage {{ i+1 }}</h3>
+      <textarea placeholder="Passage text" [(ngModel)]="p.passage"></textarea>
 
       <div *ngFor="let q of p.questions; let qi=index" class="question">
         <input placeholder="Question" [(ngModel)]="q.q">
         <input placeholder="Answer" [(ngModel)]="q.answer">
+        <button class="delete-btn" (click)="removeQuestion(p.questions, qi)">Delete</button>
       </div>
+
+      <button class="add-btn" (click)="addQuestion(p.questions)">
+        Add More Question
+      </button>
     </div>
   </div>
 
   <!-- WRITING -->
   <div *ngIf="test.type==='WRITING'" class="card">
-    <h2>Writing Test</h2>
-    <textarea placeholder="Task 1 Question" [(ngModel)]="writing.task1"></textarea>
-    <textarea placeholder="Task 2 Essay Question" [(ngModel)]="writing.task2"></textarea>
+    <h2>Writing</h2>
+    <textarea placeholder="Task 1" [(ngModel)]="writing.task1"></textarea>
+    <textarea placeholder="Task 2" [(ngModel)]="writing.task2"></textarea>
   </div>
 
   <!-- SPEAKING -->
   <div *ngIf="test.type==='SPEAKING'" class="card">
-    <h2>Speaking Test</h2>
+    <h2>Speaking</h2>
 
     <h3>Part 1</h3>
     <div *ngFor="let q of speaking.part1; let i=index" class="question">
       <input placeholder="Question" [(ngModel)]="q.q">
+      <button class="delete-btn" (click)="removeQuestion(speaking.part1, i)">Delete</button>
     </div>
+    <button class="add-btn" (click)="addQuestion(speaking.part1)">Add More Question</button>
 
     <h3>Part 2</h3>
-    <textarea placeholder="Cue card topic" [(ngModel)]="speaking.part2"></textarea>
+    <textarea placeholder="Cue Card Topic" [(ngModel)]="speaking.part2"></textarea>
 
     <h3>Part 3</h3>
     <div *ngFor="let q of speaking.part3; let i=index" class="question">
       <input placeholder="Question" [(ngModel)]="q.q">
+      <button class="delete-btn" (click)="removeQuestion(speaking.part3, i)">Delete</button>
     </div>
+    <button class="add-btn" (click)="addQuestion(speaking.part3)">Add More Question</button>
   </div>
 
-  <button class="save"
-        [disabled]="!isFormComplete()"
-        (click)="saveTest()">
-  Save Test
-</button>
+  <!-- SAVE -->
+  <button class="save-btn" [disabled]="!isFormComplete()" (click)="saveTest()">
+    {{ isEditMode ? 'Update Test' : 'Save Test' }}
+  </button>
+
+  <!-- ALL TESTS -->
+  <div class="card all-tests">
+    <h2>All Tests</h2>
+
+    <div *ngFor="let t of allTests" class="test-row">
+      <span>{{ t.name }} ({{ t.type }})</span>
+
+      <div class="actions">
+        <button class="edit-btn" (click)="editTest(t.id)">Edit</button>
+        <button class="delete-btn" (click)="deleteTest(t.id)">Delete</button>
+      </div>
+    </div>
+  </div>
 
 </div>

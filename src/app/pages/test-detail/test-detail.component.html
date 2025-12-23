@@ -1,56 +1,72 @@
-<div class="test-details-wrapper" *ngIf="test">
+<div class="wrapper" *ngIf="test">
 
   <h2>{{ test.name }}</h2>
 
-  <!-- Test Info -->
-  <div class="test-info">
-    <p><strong>Total Marks:</strong> {{ test.totalMarks }}</p>
-    <p><strong>Passing Marks:</strong> {{ test.passingMarks }}</p>
-    <p><strong>Time / Question:</strong> {{ test.timePerQuestion }} sec</p>
+  <div class="meta">
+    <p><b>Type:</b> {{ test.type }}</p>
+    <p><b>Total Marks:</b> {{ test.totalMarks }}</p>
+    <p><b>Passing Marks:</b> {{ test.passingMarks }}</p>
+    <p><b>Duration:</b> {{ test.duration }} mins</p>
+    <p><b>Status:</b> {{ test.status }}</p>
   </div>
 
-  <hr />
+  <!-- ================= LISTENING ================= -->
+  <div *ngIf="test.type === 'LISTENING'">
+    <h3>Listening Test</h3>
 
-  <!-- Questions -->
-  <div *ngIf="test.questions.length > 0">
-    <h3>Added Questions</h3>
+    <div *ngFor="let rec of test.content.recordings; let i=index" class="box">
+      <h4>Section {{ i + 1 }}</h4>
 
-    <div class="question-box" *ngFor="let q of test.questions; let i = index">
-      <p><strong>Q{{ i + 1 }}.</strong> {{ q.question }}</p>
-      <ul>
-        <li>A) {{ q.options.A }}</li>
-        <li>B) {{ q.options.B }}</li>
-        <li>C) {{ q.options.C }}</li>
-        <li>D) {{ q.options.D }}</li>
-      </ul>
-      <p class="correct">Correct: {{ q.correct }}</p>
+      <div *ngFor="let q of rec.questions">
+        <input [(ngModel)]="q.q" placeholder="Listening Question" />
+      </div>
+
+      <button (click)="addListeningQuestion(i)">+ Add Question</button>
     </div>
   </div>
 
-  <!-- Add New Question Button -->
-  <button class="add-btn" (click)="openAddQuestion()">
-    + Add New Question
-  </button>
+  <!-- ================= READING ================= -->
+  <div *ngIf="test.type === 'READING'">
+    <h3>Reading Test</h3>
 
-  <!-- Add Question Form -->
-  <div class="add-form" *ngIf="showAddForm">
-    <h3>Add Question</h3>
+    <div *ngFor="let p of test.content; let i=index" class="box">
+      <textarea [(ngModel)]="p.passage" placeholder="Reading Passage"></textarea>
 
-    <input type="text" placeholder="Question" [(ngModel)]="questionText" />
-    <input type="text" placeholder="Option A" [(ngModel)]="optionA" />
-    <input type="text" placeholder="Option B" [(ngModel)]="optionB" />
-    <input type="text" placeholder="Option C" [(ngModel)]="optionC" />
-    <input type="text" placeholder="Option D" [(ngModel)]="optionD" />
+      <div *ngFor="let q of p.questions">
+        <input [(ngModel)]="q.q" placeholder="Question" />
+        <input [(ngModel)]="q.answer" placeholder="Answer" />
+      </div>
 
-    <select [(ngModel)]="correctAnswer">
-      <option value="">Correct Answer</option>
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="C">C</option>
-      <option value="D">D</option>
-    </select>
+      <button (click)="addReadingQuestion(i)">+ Add Question</button>
+    </div>
+  </div>
 
-    <button class="save-btn" (click)="addQuestion()">Add Question</button>
+  <!-- ================= WRITING ================= -->
+  <div *ngIf="test.type === 'WRITING'">
+    <h3>Writing Test</h3>
+
+    <textarea [(ngModel)]="test.content.task1" placeholder="Task 1 Question"></textarea>
+    <textarea [(ngModel)]="test.content.task2" placeholder="Task 2 Essay"></textarea>
+  </div>
+
+  <!-- ================= SPEAKING ================= -->
+  <div *ngIf="test.type === 'SPEAKING'">
+    <h3>Speaking Test</h3>
+
+    <h4>Part 1</h4>
+    <div *ngFor="let q of test.content.part1">
+      <input [(ngModel)]="q.q" placeholder="Question" />
+    </div>
+    <button (click)="addSpeakingQuestion('part1')">+ Add Question</button>
+
+    <h4>Part 2</h4>
+    <textarea [(ngModel)]="test.content.part2" placeholder="Cue Card Topic"></textarea>
+
+    <h4>Part 3</h4>
+    <div *ngFor="let q of test.content.part3">
+      <input [(ngModel)]="q.q" placeholder="Question" />
+    </div>
+    <button (click)="addSpeakingQuestion('part3')">+ Add Question</button>
   </div>
 
 </div>

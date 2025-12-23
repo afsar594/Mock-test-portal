@@ -15,6 +15,9 @@ h2{
 .actions{
     margin-bottom: 20px;
 }
+.test-section {
+  margin-bottom: 30px;
+}
 .actions button{
     padding: 10px 20px;
     background: #1f3c88;

@@ -12,17 +12,8 @@ import { TestService } from '../../services/test.service';
   styleUrls: ['./test-detail.component.css']
 })
 export class TestDetailsComponent implements OnInit {
+
   test: any;
-
-  // form control
-  showAddForm = false;
-
-  questionText = '';
-  optionA = '';
-  optionB = '';
-  optionC = '';
-  optionD = '';
-  correctAnswer = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,44 +22,32 @@ export class TestDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.test = this.testService.getTests().find(t => t.id === id);
+    this.test = this.testService.getTestById(id);
   }
 
-  openAddQuestion() {
-    this.showAddForm = true;
+  /* ================= LISTENING ================= */
+  addListeningQuestion(sectionIndex: number) {
+    this.test.content.recordings[sectionIndex].questions.push({ q: '' });
+    this.save();
   }
 
-  addQuestion() {
-    if (
-      !this.questionText ||
-      !this.optionA ||
-      !this.optionB ||
-      !this.optionC ||
-      !this.optionD ||
-      !this.correctAnswer
-    ) return;
+  /* ================= READING ================= */
+  addReadingQuestion(passageIndex: number) {
+    this.test.content[passageIndex].questions.push({
+      q: '',
+      answer: ''
+    });
+    this.save();
+  }
 
-    const newQuestion = {
-      question: this.questionText,
-      options: {
-        A: this.optionA,
-        B: this.optionB,
-        C: this.optionC,
-        D: this.optionD
-      },
-      correct: this.correctAnswer
-    };
+  /* ================= SPEAKING ================= */
+  addSpeakingQuestion(part: 'part1' | 'part3') {
+    this.test.content[part].push({ q: '' });
+    this.save();
+  }
 
-    this.test.questions.push(newQuestion);
-
-    // clear only question form
-    this.questionText = '';
-    this.optionA = '';
-    this.optionB = '';
-    this.optionC = '';
-    this.optionD = '';
-    this.correctAnswer = '';
-
-    this.showAddForm = false;
+  /* ================= SAVE ================= */
+  save() {
+    this.testService.saveTest(this.test);
   }
 }
