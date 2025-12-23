@@ -2,9 +2,8 @@
   <h2 class="welcome">Welcome, {{ studentName }}</h2>
 
   <!-- LISTENING -->
-  <div class="section">
+  <div class="section" *ngIf="listeningTests.length > 0">
     <h3>Listening Tests</h3>
-    <div *ngIf="listeningTests.length === 0" class="no-test">No listening test available</div>
     <div class="grid">
       <div class="test-card" *ngFor="let test of listeningTests">
         <h4>{{ test.name }}</h4>
@@ -16,9 +15,8 @@
   </div>
 
   <!-- READING -->
-  <div class="section">
+  <div class="section" *ngIf="readingTests.length > 0">
     <h3>Reading Tests</h3>
-    <div *ngIf="readingTests.length === 0" class="no-test">No reading test available</div>
     <div class="grid">
       <div class="test-card" *ngFor="let test of readingTests">
         <h4>{{ test.name }}</h4>
@@ -30,9 +28,8 @@
   </div>
 
   <!-- WRITING -->
-  <div class="section">
+  <div class="section" *ngIf="writingTests.length > 0">
     <h3>Writing Tests</h3>
-    <div *ngIf="writingTests.length === 0" class="no-test">No writing test available</div>
     <div class="grid">
       <div class="test-card" *ngFor="let test of writingTests">
         <h4>{{ test.name }}</h4>
@@ -43,9 +40,8 @@
   </div>
 
   <!-- SPEAKING -->
-  <div class="section">
+  <div class="section" *ngIf="speakingTests.length > 0">
     <h3>Speaking Tests</h3>
-    <div *ngIf="speakingTests.length === 0" class="no-test">No speaking test available</div>
     <div class="grid">
       <div class="test-card" *ngFor="let test of speakingTests">
         <h4>{{ test.name }}</h4>

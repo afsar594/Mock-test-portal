@@ -40,6 +40,27 @@ The Academic test is for higher education or professional registration, while th
       question: 'Where can I find IELTS practice tests?',
       answer: `Free practice tests and preparation material are available on our website.`,
       open: false
+    },
+    // ✅ Additional FAQs
+    {
+      question: 'How is the IELTS scored?',
+      answer: `Each section (Listening, Reading, Writing, Speaking) is scored from 0 to 9. The overall band score is the average of the four sections.`,
+      open: false
+    },
+    {
+      question: 'Can I retake the IELTS test if I am not satisfied with my score?',
+      answer: `Yes, you can retake the IELTS test as many times as you like. You just need to register and pay the test fee again.`,
+      open: false
+    },
+    {
+      question: 'Is there any age limit for taking the IELTS test?',
+      answer: `There is no age limit. Candidates of all ages can take the IELTS test.`,
+      open: false
+    },
+    {
+      question: 'How do I register for the IELTS test?',
+      answer: `You can register online through the official IELTS website or at authorized test centers.`,
+      open: false
     }
   ];
 

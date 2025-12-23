@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,14 +10,29 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   username = '';
   password = '';
+  rememberMe = false;
 
   constructor(private router: Router) {}
 
+  ngOnInit() {
+    const savedUser = localStorage.getItem('rememberedUser');
+    if (savedUser) {
+      this.username = savedUser;
+      this.rememberMe = true;
+    }
+  }
+
   login() {
+
+    if (this.rememberMe) {
+      localStorage.setItem('rememberedUser', this.username);
+    } else {
+      localStorage.removeItem('rememberedUser');
+    }
 
     // MODERATOR LOGIN
     if (this.username === 'moderator' && this.password === '123') {
@@ -34,7 +49,7 @@ export class LoginComponent {
       return;
     }
 
-    // STUDENT LOGIN (any name or ID allowed)
+    // STUDENT LOGIN
     if (this.username.trim() !== '' && this.password === '123') {
 
       localStorage.setItem(
@@ -50,5 +65,9 @@ export class LoginComponent {
     }
 
     alert('Invalid username or password');
+  }
+
+  forgotPassword() {
+    alert('Please contact admin to reset your password.');
   }
 }

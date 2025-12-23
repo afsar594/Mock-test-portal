@@ -1,20 +1,36 @@
 <div class="login-wrapper">
-    <div class="login-card">
-<h2>Mock Test Portal</h2>
-<p class="subtitle">Sign in to continue</p>
-<input
-type="text"
-placeholder="Username"
-[(ngModel)]="username"
-/>
-<input
-type="password"
-placeholder="Password"
-[(ngModel)]="password"
-/>
-<button (click)="login()"
-[disabled]="!username || !password">
-    Login
-</button>
+  <div class="login-card">
+
+    <h2>Mock Test Portal</h2>
+    <p class="subtitle">Sign in to continue</p>
+
+    <input
+      type="text"
+      placeholder="Username"
+      [(ngModel)]="username"
+    />
+
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+    />
+
+    <!-- REMEMBER + FORGOT -->
+    <div class="options">
+      <label class="remember">
+        <input type="checkbox" [(ngModel)]="rememberMe" />
+        Remember me
+      </label>
+
+      <a class="forgot" (click)="forgotPassword()">Forgot password?</a>
     </div>
+
+    <button
+      (click)="login()"
+      [disabled]="!username || !password">
+      Login
+    </button>
+
+  </div>
 </div>

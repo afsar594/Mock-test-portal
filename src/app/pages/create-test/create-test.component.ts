@@ -37,7 +37,8 @@ export class CreateTestComponent {
   /* ================= WRITING ================= */
   writing: any = {
     task1: '',
-    task2: ''
+    task2: '',
+    
   };
 
   /* ================= SPEAKING ================= */
@@ -170,9 +171,9 @@ export class CreateTestComponent {
     return {
       id: Date.now(),
       name: '',
-      totalMarks: 40,
-      passingMarks: 20,
-      duration: 30,
+      totalMarks: '',
+      passingMarks: '',
+      duration: '',
       type: '',
       status: 'Active',
       content: null

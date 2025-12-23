@@ -3,23 +3,28 @@
   <h1>{{ isEditMode ? 'Edit IELTS Test' : 'Create IELTS Test' }}</h1>
 
   <!-- BASIC INFO -->
-  <div class="card">
+<div class="card">
+
+  <div class="row">
     <input placeholder="Test Name" [(ngModel)]="test.name">
-
-    <div class="row">
-      <input type="number" placeholder="Total Marks" [(ngModel)]="test.totalMarks">
-      <input type="number" placeholder="Passing Marks" [(ngModel)]="test.passingMarks">
-      <input type="number" placeholder="Duration (minutes)" [(ngModel)]="test.duration">
-    </div>
-
-    <select [(ngModel)]="test.type">
-      <option value="">Select Test Type</option>
-      <option value="LISTENING">Listening</option>
-      <option value="READING">Reading</option>
-      <option value="WRITING">Writing</option>
-      <option value="SPEAKING">Speaking</option>
-    </select>
   </div>
+
+  <div class="row">
+    <input type="number" placeholder="Total Marks" [(ngModel)]="test.totalMarks">
+    <input type="number" placeholder="Passing Marks" [(ngModel)]="test.passingMarks">
+    <input type="number" placeholder="Duration (minutes)" [(ngModel)]="test.duration">
+  </div>
+
+  <select [(ngModel)]="test.type">
+    <option value="">Select Test Type</option>
+    <option value="LISTENING">Listening</option>
+    <option value="READING">Reading</option>
+    <option value="WRITING">Writing</option>
+    <option value="SPEAKING">Speaking</option>
+  </select>
+
+</div>
+
 
   <!-- LISTENING -->
   <div *ngIf="test.type==='LISTENING'" class="card">
