@@ -3,36 +3,46 @@
   <h1>{{ isEditMode ? 'Edit IELTS Test' : 'Create IELTS Test' }}</h1>
 
   <!-- BASIC INFO -->
-<div class="card">
+  <div class="card">
+    <div class="row">
+      <input placeholder="Test Name" [(ngModel)]="test.name">
+    </div>
 
-  <div class="row">
-    <input placeholder="Test Name" [(ngModel)]="test.name">
+    <div class="row">
+      <input type="number" placeholder="Total Marks" [(ngModel)]="test.totalMarks">
+      <input type="number" placeholder="Passing Marks" [(ngModel)]="test.passingMarks">
+      <input type="number" placeholder="Duration (minutes)" [(ngModel)]="test.duration">
+    </div>
+
+    <select [(ngModel)]="test.type">
+      <option value="">Select Test Type</option>
+      <option value="LISTENING">Listening</option>
+      <option value="READING">Reading</option>
+      <option value="WRITING">Writing</option>
+      <option value="SPEAKING">Speaking</option>
+    </select>
   </div>
 
-  <div class="row">
-    <input type="number" placeholder="Total Marks" [(ngModel)]="test.totalMarks">
-    <input type="number" placeholder="Passing Marks" [(ngModel)]="test.passingMarks">
-    <input type="number" placeholder="Duration (minutes)" [(ngModel)]="test.duration">
-  </div>
-
-  <select [(ngModel)]="test.type">
-    <option value="">Select Test Type</option>
-    <option value="LISTENING">Listening</option>
-    <option value="READING">Reading</option>
-    <option value="WRITING">Writing</option>
-    <option value="SPEAKING">Speaking</option>
-  </select>
-
-</div>
-
-
-  <!-- LISTENING -->
+  <!-- ================= LISTENING ================= -->
   <div *ngIf="test.type==='LISTENING'" class="card">
     <h2>Listening</h2>
 
     <div *ngFor="let rec of listening.recordings; let i=index" class="inner-card">
       <h3>Recording {{ i+1 }}</h3>
-      <input placeholder="Audio URL" [(ngModel)]="rec.audio">
+
+      <!-- AUDIO UPLOAD -->
+      <div class="audio-upload">
+        <label class="upload-label">
+          Upload Audio
+          <input type="file" accept="audio/*" hidden (change)="onAudioSelected($event, i)">
+        </label>
+
+        <div *ngIf="rec.audioName" class="audio-info">
+          🎧 {{ rec.audioName }}
+        </div>
+
+        <audio *ngIf="rec.audioUrl" [src]="rec.audioUrl" controls class="audio-player"></audio>
+      </div>
 
       <div *ngFor="let q of rec.questions; let qi=index" class="question">
         <input placeholder="Question" [(ngModel)]="q.q">
@@ -45,7 +55,7 @@
     </div>
   </div>
 
-  <!-- READING -->
+  <!-- ================= READING ================= -->
   <div *ngIf="test.type==='READING'" class="card">
     <h2>Reading</h2>
 
@@ -59,20 +69,18 @@
         <button class="delete-btn" (click)="removeQuestion(p.questions, qi)">Delete</button>
       </div>
 
-      <button class="add-btn" (click)="addQuestion(p.questions)">
-        Add More Question
-      </button>
+      <button class="add-btn" (click)="addQuestion(p.questions)">Add More Question</button>
     </div>
   </div>
 
-  <!-- WRITING -->
+  <!-- ================= WRITING ================= -->
   <div *ngIf="test.type==='WRITING'" class="card">
     <h2>Writing</h2>
     <textarea placeholder="Task 1" [(ngModel)]="writing.task1"></textarea>
     <textarea placeholder="Task 2" [(ngModel)]="writing.task2"></textarea>
   </div>
 
-  <!-- SPEAKING -->
+  <!-- ================= SPEAKING ================= -->
   <div *ngIf="test.type==='SPEAKING'" class="card">
     <h2>Speaking</h2>
 
@@ -99,7 +107,7 @@
     {{ isEditMode ? 'Update Test' : 'Save Test' }}
   </button>
 
-  <!-- ALL TESTS -->
+  <!-- ================= ALL TESTS (SAME AS BEFORE) ================= -->
   <div class="card all-tests">
     <h2>All Tests</h2>
 

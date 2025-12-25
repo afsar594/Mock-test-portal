@@ -12,13 +12,24 @@
 
   <!-- LISTENING -->
   <div *ngIf="test.type === 'LISTENING'">
-    <div *ngFor="let rec of test.content.recordings; let i=index" class="card">
-      <h3>Recording {{ i + 1 }}</h3>
-      <p><strong>Audio:</strong> {{ rec.audio }}</p>
+    <div *ngFor="let rec of test.content.recordings; let i=index" class="card listening-card">
+      <h3>🎧 Recording {{ i + 1 }}</h3>
 
-      <div *ngFor="let q of rec.questions; let qi=index">
-        <p>{{ q.q }}</p>
-        <input [(ngModel)]="answers['l'+i+qi]" placeholder="Your answer">
+      <audio
+        class="audio-player"
+        [attr.id]="'audio'+i"
+        (play)="onAudioPlay(i)"
+        controls
+        controlsList="nodownload noplaybackrate"
+      >
+        <source [src]="rec.audio" type="audio/mpeg">
+      </audio>
+
+      <p class="audio-timer">⏱ {{ audioTime[i] || 0 }}s</p>
+
+      <div *ngFor="let q of rec.questions; let qi=index" class="listening-question">
+        <p><strong>Q{{ qi + 1 }}.</strong> {{ q.q }}</p>
+        <input [(ngModel)]="answers['l'+i+qi]" placeholder="Type your answer">
       </div>
     </div>
   </div>
@@ -49,19 +60,25 @@
 
   <!-- SPEAKING -->
   <div *ngIf="test.type === 'SPEAKING'" class="card">
-    <h3>Part 1</h3>
+    <h3>🎤 Speaking Test</h3>
+
     <p *ngFor="let q of test.content.part1">{{ q.q }}</p>
 
-    <h3>Part 2</h3>
-    <p>{{ test.content.part2 }}</p>
+    <button class="record-btn" (click)="startRecording()" [disabled]="recording">
+      🎙 Start Recording
+    </button>
+    <button class="stop-btn" (click)="stopRecording()" [disabled]="!recording">
+      ⏹ Stop Recording
+    </button>
 
-    <h3>Part 3</h3>
-    <p *ngFor="let q of test.content.part3">{{ q.q }}</p>
+    <p *ngIf="recording" class="recording-time">Recording: {{ recordingTime }}s</p>
 
-    <p class="note">Speak your answers verbally.</p>
+    <audio *ngIf="recordedAudio" [src]="recordedAudio" controls></audio>
   </div>
 
-  <button class="submit" (click)="submitTest()" [disabled]="submitted">Submit Test</button>
+  <button class="submit" (click)="submitTest()" [disabled]="submitted">
+    Submit Test
+  </button>
 
   <div class="result" *ngIf="submitted">
     <h2>Test Submitted Successfully</h2>

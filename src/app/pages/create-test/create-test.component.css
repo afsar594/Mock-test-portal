@@ -155,30 +155,40 @@ button {
   display: flex;
   gap: 8px;
 }
+/* ================= AUDIO UPLOAD (NEW) ================= */
+.audio-upload {
+  margin-top: 10px;
+}
+
+.upload-label {
+  display: inline-block;
+  background: #1f3c88;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.upload-label:hover {
+  background: #162d6d;
+}
+
+.audio-info {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.audio-player {
+  width: 100%;
+  margin-top: 8px;
+}
+
+
 
 /* ================= RESPONSIVE ================= */
 
-/* TABLET */
-@media (max-width: 992px) {
-
-  .wrapper {
-    padding: 15px;
-  }
-
-  .row {
-    flex-direction: column;
-  }
-
-  .question {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .actions {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
 
 
 @media (max-width: 768px) {

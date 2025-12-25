@@ -10,10 +10,7 @@
   text-align: center;
 }
 
-.test-header h1 {
-  color: #1f3c88;
-  margin-bottom: 8px;
-}
+.test-header h1 { color: #1f3c88; margin-bottom: 8px; }
 
 .test-header .info span {
   display: inline-block;
@@ -38,9 +35,7 @@ input, textarea {
   border: 1px solid #ccc;
 }
 
-textarea {
-  min-height: 120px;
-}
+textarea { min-height: 120px; }
 
 .submit {
   width: 100%;
@@ -52,10 +47,7 @@ textarea {
   border-radius: 6px;
 }
 
-.submit:disabled {
-  background: #999;
-  cursor: not-allowed;
-}
+.submit:disabled { background: #999; cursor: not-allowed; }
 
 .result {
   margin-top: 30px;
@@ -65,19 +57,33 @@ textarea {
   text-align: center;
 }
 
-.note {
-  color: #555;
-  font-style: italic;
+/* Listening Player */
+.audio-player { width: 100%; margin-bottom: 6px; }
+.audio-timer { font-weight: 600; color: #1f3c88; margin-bottom: 8px; }
+
+/* Speaking Buttons */
+.record-btn, .stop-btn {
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .wrapper {
-    padding: 12px;
-  }
+.record-btn { background: linear-gradient(90deg,#0ea5e9,#3b82f6); color: #fff; }
+.record-btn:hover { background: linear-gradient(90deg,#0284c7,#2563eb); }
 
-  .test-header .info span {
-    display: block;
-    margin-bottom: 6px;
-  }
+.stop-btn { background: linear-gradient(90deg,#ef4444,#dc2626); color: #fff; }
+.stop-btn:hover { background: linear-gradient(90deg,#b91c1c,#991b1b); }
+
+.record-btn:disabled, .stop-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.recording-time { font-weight: 600; color: #1f3c88; margin-top: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wrapper { padding: 12px; }
+  .test-header .info span { display: block; margin-bottom: 6px; }
 }
