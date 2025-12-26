@@ -59,74 +59,24 @@ button:hover{
 .edit-btn:hover {
   background: #4b5563;
 }
-/* =========================
-   Responsive Design
-========================= */
-
-/* Tablet screens */
-@media (max-width: 992px) {
-  .dashboard-wrapper {
-    margin: 20px;
-    padding: 20px;
-  }
-
-  table {
-    font-size: 14px;
-  }
-
-  th, td {
-    padding: 10px;
-  }
-}
-
-/* Mobile screens */
+/* ======== Mobile Buttons Fix ======== */
 @media (max-width: 768px) {
   .actions {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: nowrap;      
+    justify-content: flex-start;
+    gap: 5px;
   }
 
-  .actions button {
-    width: 100%;
-  }
-
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  h2 {
-    font-size: 20px;
-    text-align: center;
-  }
-
-  button {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-}
-
-/* Small mobile screens */
-@media (max-width: 480px) {
-  .dashboard-wrapper {
-    padding: 15px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  th, td {
-    padding: 8px;
-    font-size: 12px;
-  }
-
+  .actions button,
   .edit-btn,
   .logout-btn {
-    width: 100%;
-    margin-bottom: 6px;
+    flex: 1 1 auto;        
+    min-width: 50px;        
+    max-width: 100px;        
+    padding: 4px 6px;       
+    font-size: 11px;        
+    white-space: nowrap;      
   }
 }
 
